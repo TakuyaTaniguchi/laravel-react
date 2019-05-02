@@ -5,12 +5,12 @@
 laravelとReactを使ったTodoリスト
 
 
-php
+バックエンド
 ```
 php artisan serve
 ```
 
-javascript
+フロントエンド
 
 初回起動時
 ```
