@@ -12,7 +12,8 @@ cd laravel-react
 cp .env.example .env
 ```
 
-```.env
+.env
+```
 DB_CONNECTION=mysql
 DB_HOST={}
 DB_PORT={}
