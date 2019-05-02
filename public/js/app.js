@@ -61708,23 +61708,61 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+ //RenderRowsの機能実装
 
+function RenderRows(props) {
+  //mapでループしている（for相当）
+  return props.todos.map(function (todo) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+      key: todo.id
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, todo.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "btn btn-secondary"
+    }, "\u5B8C\u4E86")));
+  });
+}
 
 var TodoApp =
 /*#__PURE__*/
 function (_Component) {
   _inherits(TodoApp, _Component);
 
+  //コンストラクタ内でstateにtodosを宣言
   function TodoApp() {
+    var _this;
+
     _classCallCheck(this, TodoApp);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TodoApp).apply(this, arguments));
-  }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TodoApp).call(this));
+    _this.state = {
+      todos: []
+    };
+    return _this;
+  } //コンポーネントがマウントされた時点で初期描画用のtodosをAPIから取得
+
 
   _createClass(TodoApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios.get('/api/get').then(function (res) {
+        //todosを更新（描画がかかる）
+        _this2.setState({
+          todos: res.data
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    } //テーブルの骨組みを描画し、行の描画はRenderRowsに任せる（その際、todosを渡す）
+
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "TodoApp!!!!");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table mt-5"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "ID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u30BF\u30B9\u30AF"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "\u5B8C\u4E86"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RenderRows, {
+        todos: this.state.todos
+      }))));
     }
   }]);
 
