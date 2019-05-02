@@ -8,6 +8,11 @@ laravelとReactを使ったTodoリスト
 バックエンド
 
 ```
+cd laravel-react
+cp .env.example .env
+```
+
+```.env
 DB_CONNECTION=mysql
 DB_HOST={}
 DB_PORT={}
